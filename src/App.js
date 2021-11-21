@@ -5,12 +5,15 @@ import {
   Text,
   View,
 } from 'react-native';
+import Input from './Components/Input/Input';
 
 
 
 const App = () => {
   return(
-    <View></View>
+    <View>
+      <Input placeholder="Urun" title="urun"></Input>
+    </View>
   )
 }
 
