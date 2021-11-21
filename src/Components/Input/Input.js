@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import styles from "./InputStyles";
 
-const Input = ({placeholder, title}) => {
-  const [input, setInput] = useState()
+const Input = ({placeholder, title, onChangeText, value}) => {
 
   return(
     <View style={styles.container}>
@@ -11,8 +10,8 @@ const Input = ({placeholder, title}) => {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-        value={input}
-        onChangeText={setInput}></TextInput>
+        value={value}
+        onChangeText={onChangeText}></TextInput>
     </View>
   )
 }
