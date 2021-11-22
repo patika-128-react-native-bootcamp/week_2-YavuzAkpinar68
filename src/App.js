@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Input from './Components/Input/Input';
 import Sbutton from './Components/SıralamaButonu/SButton';
@@ -10,9 +10,10 @@ const App = () => {
   const [urun, setUrun] = useState("")
   const [fiyat, setFiyat] = useState()
   const [satıs, setSatıs] = useState([])
+  const [click, setClick] = useState(true)
 
   
-  const addUrun = () => {
+  const addUrun = ({flexDirection}) => {
     urun ? fiyat ?
     setSatıs([{urun:urun, fiyat:fiyat},...satıs]):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
@@ -20,21 +21,29 @@ const App = () => {
     setFiyat()
     setUrun("")
   }
+  const satısazalan = satıs.sort((a,b) => a.fiyat - b.fiyat)
   const azalan = () => {
-    satıs.sort((a,b) => a.fiyat.localeCompare(b.fiyat))
+      setClick(true)
   }
+ 
+
+  const artan = () => {
+    setClick(false)
+ }
+
  
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
-        <Sbutton title="Artan" />
+        <Sbutton title="Artan" onPress={artan}/>
         <Sbutton title="Azalan" onPress={azalan}/>
         <Sbutton title="Tarih"/>
       </View>
       <View style={styles.flatListView}>
         <FlatList 
           data={satıs} 
-          renderItem={({item}) => <UrunCard item={item}/>}/>
+          renderItem={({item}) => <UrunCard item={item}/>}
+          contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}/>
       </View>
       <View style={styles.inputView}>
         <Input 
@@ -76,12 +85,12 @@ const styles = StyleSheet.create({
     flex:1
   },
   flatListView:{
-    flex:8
+    flex:6
   },
   container:{
     flex:1
   },
   inputView:{
-    flex:4,
+    flex:3,
   }
 })
