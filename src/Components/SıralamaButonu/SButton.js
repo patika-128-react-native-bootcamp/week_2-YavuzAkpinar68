@@ -1,9 +1,12 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import styles from "./SButtonStyles";
 
-const Sbutton = ({title}) => {
+const Sbutton = ({title, onPress}) => {
   return(
-    <TouchableOpacity>
+    <TouchableOpacity 
+      onPress={onPress}
+      style={styles.sButton}>
       <Text>{title}</Text>
     </TouchableOpacity>
   )
