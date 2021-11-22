@@ -3,7 +3,6 @@ import {
   Button,
   FlatList,
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -19,17 +18,28 @@ const App = () => {
 
   
   const addUrun = () => {
-    setSatıs([{urun:urun, fiyat:fiyat},...satıs])
+    urun === true && fiyat === true ?
+    setSatıs([{urun:urun, fiyat:fiyat},...satıs]):
+    alert("Urun veya Fiyat özellikleri boş bırakılamaz")
   }
  
   return(
-    <View>
+    <SafeAreaView>
       <FlatList 
-        data={satıs} renderItem={({item}) => <UrunCard item={item}/>}/>
-      <Input placeholder="Urun" title="urun" value={urun} onChangeText={setUrun}></Input>
-      <Input placeholder="Fiyat" title="Fiyat" value={fiyat} onChangeText={setFiyat}></Input>
+        data={satıs} 
+        renderItem={({item}) => <UrunCard item={item}/>}/>
+      <Input 
+        placeholder="Urun" 
+        title="urun" 
+        value={urun} 
+        onChangeText={setUrun}></Input>
+      <Input 
+        placeholder="Fiyat" 
+        title="Fiyat" 
+        value={fiyat} 
+        onChangeText={setFiyat}></Input>
       <Button title="Ekle" onPress={addUrun}></Button>
-    </View>
+    </SafeAreaView>
   )
 }
 
