@@ -11,24 +11,27 @@ const App = () => {
   const [fiyat, setFiyat] = useState()
   const [satıs, setSatıs] = useState([])
   const [click, setClick] = useState(true)
+  const [date, setDate] = useState()
 
   
-  const addUrun = ({flexDirection}) => {
+  const addUrun = () => {
     urun ? fiyat ?
     setSatıs([{urun:urun, fiyat:fiyat},...satıs]):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
-    alert("Urun veya Fiyat özellikleri boş bırakılamaz");
+    alert("Urun veya Fiyat özellikleri boş bırakılamaz")
     setFiyat()
     setUrun("")
+    setDate(Date().getDate())
   }
   const satısazalan = satıs.sort((a,b) => a.fiyat - b.fiyat)
   const azalan = () => {
-      setClick(true)
+    setClick(true)
   }
- 
-
   const artan = () => {
     setClick(false)
+ }
+ const tarih = () => {
+
  }
 
  
