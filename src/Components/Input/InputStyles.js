@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     margin:5,
   },
   title:{
-    
+    fontSize:15,
+    paddingLeft:5
   },
   input:{
     backgroundColor:"silver",
