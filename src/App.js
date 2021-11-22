@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  FlatList,
-  SafeAreaView,
-  Text,
-  View,
-} from 'react-native';
+import { Button, FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Input from './Components/Input/Input';
 import UrunCard from './Components/UrunCard/UrunCard';
 
@@ -18,8 +12,9 @@ const App = () => {
 
   
   const addUrun = () => {
-    urun === true && fiyat === true ?
+    urun ? fiyat ?
     setSatıs([{urun:urun, fiyat:fiyat},...satıs]):
+    alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz")
   }
  
@@ -29,18 +24,35 @@ const App = () => {
         data={satıs} 
         renderItem={({item}) => <UrunCard item={item}/>}/>
       <Input 
-        placeholder="Urun" 
-        title="urun" 
+        placeholder="Urun..." 
+        title="Urun Adı" 
         value={urun} 
         onChangeText={setUrun}></Input>
       <Input 
-        placeholder="Fiyat" 
+        placeholder="Fiyat..." 
         title="Fiyat" 
         value={fiyat} 
         onChangeText={setFiyat}></Input>
-      <Button title="Ekle" onPress={addUrun}></Button>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={addUrun}> 
+        <Text style={styles.buttonText}>Ekle</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+  buttonContainer:{
+    borderRadius:10, 
+    margin:5, 
+    backgroundColor:"aqua",
+    padding:10,
+    alignItems:"center"
+  },
+  buttonText:{
+    fontSize:15
+  }
+})
