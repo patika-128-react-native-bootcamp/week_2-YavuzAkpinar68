@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const UrunCard = ({urun, fiyat}) => {
+const UrunCard = ({item}) => {
   return(
     <View>
-      <Text>{urun}</Text>
-      <Text>{fiyat}</Text>
+      <Text>{item.urun}</Text>
+      <Text>{item.fiyat}</Text>
     </View>
     
   )
