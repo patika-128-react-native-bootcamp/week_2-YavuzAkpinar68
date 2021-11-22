@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     margin:10,
     borderRadius:10,
     padding:10,
-    alignItems:"center"
+    alignItems:"center",
+    maxHeight:Dimensions.get("screen").height/20
   }
 })
 export default styles
