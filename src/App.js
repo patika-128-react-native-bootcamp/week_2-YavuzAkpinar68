@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Button,
+  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -18,11 +19,13 @@ const App = () => {
 
   
   const addUrun = () => {
+    setSatıs([{urun:urun, fiyat:fiyat},...satıs])
   }
  
   return(
     <View>
-      <UrunCard urun={urun} fiyat={fiyat}/>
+      <FlatList 
+        data={satıs} renderItem={({item}) => <UrunCard item={item}/>}/>
       <Input placeholder="Urun" title="urun" value={urun} onChangeText={setUrun}></Input>
       <Input placeholder="Fiyat" title="Fiyat" value={fiyat} onChangeText={setFiyat}></Input>
       <Button title="Ekle" onPress={addUrun}></Button>
