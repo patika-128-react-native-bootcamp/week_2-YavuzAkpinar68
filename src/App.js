@@ -3,27 +3,16 @@ import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from '
 import Input from './Components/Input/Input';
 import Sbutton from './Components/Buttons/SButton';
 import ProductCard from './Components/ProductCard/ProductCard';
+import AddButton from './Components/Buttons/AddButton';
+import AddInput from './Components/Input/AddInput';
 
 
 
 const App = () => {
-  const [product, setProduct] = useState("")
-  const [price, setPrice] = useState()
-  const [data, setData] = useState([])
-  const [click, setClick] = useState(true)
-  const [date, setDate] = useState()
-  /*const [dateClick, setDateClick] = useState(false)*/
+  const [products, setProducts] = useState([])
 
   
-  const addProduct = () => {
-    product ? price ?
-    setData([{product:product, price:price, date:date},...data]):
-    alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
-    alert("Urun veya Fiyat özellikleri boş bırakılamaz")
-    setPrice()
-    setProduct("")
-    setDate(new Date().toLocaleString())
-  }
+  
 
   /*if (click && dateClick == false) {
     data.sort((a,b) => a.price - b.price)
@@ -39,21 +28,19 @@ const App = () => {
   const decreasing = () => {
     /*setClick(true)
     setDateClick(false)*/
-    data.sort((a,b) => a.price - b.price)
-
+    products.sort((a,b) => a.price - b.price).reverse()
   }
   const growing = () => {
     /*setClick(false)*/
     /*setDateClick(false)*/
-    data.sort((a,b) => a.price - b.price).reverse
- }
- const history = () => {
+    products.sort((a,b) => a.price - b.price)
+  }
+  const history = () => {
     /*setClick(true)
     setDateClick(true)*/
-    data.sort((a,b) => a.date.localeCompare(b.date))
-
- }
- useEffect(() => (setDate(new Date().toLocaleString())) ,[])
+    products.sort((a,b) => a.date.localeCompare(b.date))
+  }
+  useEffect(() => {}, [decreasing, growing, history])
 
  
   return(
@@ -65,26 +52,12 @@ const App = () => {
       </View>
       <View style={styles.flatListView}>
         <FlatList 
-          data={data} 
+          data={products} 
           renderItem={({item}) => <ProductCard item={item}/>}
-          contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}/>
+          /*contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}*//>
       </View>
       <View style={styles.inputView}>
-        <Input 
-          placeholder="Urun..." 
-          title="Urun Adı" 
-          value={product} 
-          onChangeText={setProduct}></Input>
-        <Input 
-          placeholder="Fiyat..." 
-          title="Fiyat" 
-          value={price} 
-          onChangeText={setPrice}></Input>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={addProduct}> 
-          <Text style={styles.buttonText}>Ekle</Text>
-        </TouchableOpacity>
+        <AddInput sendData={data => setProducts(data)}></AddInput>
       </View>
     </SafeAreaView>
   )
@@ -93,16 +66,7 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  buttonContainer:{
-    borderRadius:10, 
-    margin:5, 
-    backgroundColor:"teal",
-    padding:10,
-    alignItems:"center"
-  },
-  buttonText:{
-    fontSize:15
-  },
+  
   sButtonView:{
     flexDirection:"row",
     justifyContent:"space-between",
