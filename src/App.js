@@ -10,6 +10,7 @@ import AddInput from './Components/Input/AddInput';
 
 const App = () => {
   const [products, setProducts] = useState([])
+  const [render, setRender] = useState(0)
 
   
   
@@ -24,25 +25,30 @@ const App = () => {
   else if (click == false && dateClick == false) {
     data.sort((a,b) => a.price - b.price)
   }*/
-
+  
   const decreasing = () => {
     /*setClick(true)
     setDateClick(false)*/
-    products.sort((a,b) => a.price - b.price).reverse()
+    setProducts(products.sort((a,b) => a.price - b.price).reverse())
+    setRender(1)
   }
   const growing = () => {
+    console.log("aaaaaaaa")
     /*setClick(false)*/
     /*setDateClick(false)*/
     products.sort((a,b) => a.price - b.price)
+    setRender(2)
+
   }
   const history = () => {
     /*setClick(true)
     setDateClick(true)*/
     products.sort((a,b) => a.date.localeCompare(b.date))
-  }
-  useEffect(() => {}, [decreasing, growing, history])
+    setRender(3)
 
- 
+  }
+
+ useEffect(() => {}, [])
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
@@ -51,7 +57,8 @@ const App = () => {
         <Sbutton title="Tarih" onPress={history}/>
       </View>
       <View style={styles.flatListView}>
-        <FlatList 
+        <FlatList
+          extraData={render} 
           data={products} 
           renderItem={({item}) => <ProductCard item={item}/>}
           /*contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}*//>
