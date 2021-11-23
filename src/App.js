@@ -12,27 +12,43 @@ const App = () => {
   const [satıs, setSatıs] = useState([])
   const [click, setClick] = useState(true)
   const [date, setDate] = useState()
+  const [tarihClick, setTarihClick] = useState(false)
 
   
   const addUrun = () => {
     urun ? fiyat ?
-    setSatıs([{urun:urun, fiyat:fiyat},...satıs]):
+    setSatıs([{urun:urun, fiyat:fiyat, date:date},...satıs]):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz")
     setFiyat()
     setUrun("")
-    setDate(Date().getDate())
+    setDate(new Date().toLocaleString())
   }
-  const satısazalan = satıs.sort((a,b) => a.fiyat - b.fiyat)
+
+  if (click && tarihClick == false) {
+    satıs.sort((a,b) => a.fiyat - b.fiyat)
+  }else if (click && tarihClick) {
+    satıs.sort((a,b) => a.date.localeCompare(b.date))
+  }else if (click == false && tarihClick) {
+    satıs.sort((a,b) => a.date.localeCompare(b.date))
+  }
+  else if (click == false && tarihClick == false) {
+    satıs.sort((a,b) => a.fiyat - b.fiyat)
+  }
+
   const azalan = () => {
     setClick(true)
+    setTarihClick(false)
   }
   const artan = () => {
     setClick(false)
+    setTarihClick(false)
  }
  const tarih = () => {
-
+    setClick(true)
+    setTarihClick(true)
  }
+ useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 
  
   return(
@@ -40,7 +56,7 @@ const App = () => {
       <View style={styles.sButtonView}>
         <Sbutton title="Artan" onPress={artan}/>
         <Sbutton title="Azalan" onPress={azalan}/>
-        <Sbutton title="Tarih"/>
+        <Sbutton title="Tarih" onPress={tarih}/>
       </View>
       <View style={styles.flatListView}>
         <FlatList 
