@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Input from './Components/Input/Input';
-import Sbutton from './Components/SıralamaButonu/SButton';
-import UrunCard from './Components/UrunCard/UrunCard';
+import Sbutton from './Components/Buttons/SButton';
+import ProductCard from './Components/ProductCard/ProductCard';
 
 
 
@@ -12,7 +12,7 @@ const App = () => {
   const [data, setData] = useState([])
   const [click, setClick] = useState(true)
   const [date, setDate] = useState()
-  const [dateClick, setDateClick] = useState(false)
+  /*const [dateClick, setDateClick] = useState(false)*/
 
   
   const addProduct = () => {
@@ -25,7 +25,7 @@ const App = () => {
     setDate(new Date().toLocaleString())
   }
 
-  if (click && dateClick == false) {
+  /*if (click && dateClick == false) {
     data.sort((a,b) => a.price - b.price)
   }else if (click && dateClick) {
     data.sort((a,b) => a.date.localeCompare(b.date))
@@ -34,19 +34,24 @@ const App = () => {
   }
   else if (click == false && dateClick == false) {
     data.sort((a,b) => a.price - b.price)
-  }
+  }*/
 
   const decreasing = () => {
-    setClick(true)
-    setDateClick(false)
+    /*setClick(true)
+    setDateClick(false)*/
+    data.sort((a,b) => a.price - b.price)
+
   }
   const growing = () => {
-    setClick(false)
-    setDateClick(false)
+    /*setClick(false)*/
+    /*setDateClick(false)*/
+    data.sort((a,b) => a.price - b.price).reverse
  }
  const history = () => {
-    setClick(true)
-    setDateClick(true)
+    /*setClick(true)
+    setDateClick(true)*/
+    data.sort((a,b) => a.date.localeCompare(b.date))
+
  }
  useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 
@@ -61,7 +66,7 @@ const App = () => {
       <View style={styles.flatListView}>
         <FlatList 
           data={data} 
-          renderItem={({item}) => <UrunCard item={item}/>}
+          renderItem={({item}) => <ProductCard item={item}/>}
           contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}/>
       </View>
       <View style={styles.inputView}>
@@ -69,12 +74,12 @@ const App = () => {
           placeholder="Urun..." 
           title="Urun Adı" 
           value={product} 
-          onChangeText={setUrun}></Input>
+          onChangeText={setProduct}></Input>
         <Input 
           placeholder="Fiyat..." 
           title="Fiyat" 
           value={price} 
-          onChangeText={setFiyat}></Input>
+          onChangeText={setPrice}></Input>
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={addProduct}> 
