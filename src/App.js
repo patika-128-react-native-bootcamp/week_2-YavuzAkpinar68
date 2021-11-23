@@ -7,46 +7,46 @@ import UrunCard from './Components/UrunCard/UrunCard';
 
 
 const App = () => {
-  const [urun, setUrun] = useState("")
-  const [fiyat, setFiyat] = useState()
-  const [satıs, setSatıs] = useState([])
+  const [product, setProduct] = useState("")
+  const [price, setPrice] = useState()
+  const [data, setData] = useState([])
   const [click, setClick] = useState(true)
   const [date, setDate] = useState()
-  const [tarihClick, setTarihClick] = useState(false)
+  const [dateClick, setDateClick] = useState(false)
 
   
-  const addUrun = () => {
-    urun ? fiyat ?
-    setSatıs([{urun:urun, fiyat:fiyat, date:date},...satıs]):
+  const addProduct = () => {
+    product ? price ?
+    setData([{product:product, price:price, date:date},...data]):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz"):
     alert("Urun veya Fiyat özellikleri boş bırakılamaz")
-    setFiyat()
-    setUrun("")
+    setPrice()
+    setProduct("")
     setDate(new Date().toLocaleString())
   }
 
-  if (click && tarihClick == false) {
-    satıs.sort((a,b) => a.fiyat - b.fiyat)
-  }else if (click && tarihClick) {
-    satıs.sort((a,b) => a.date.localeCompare(b.date))
-  }else if (click == false && tarihClick) {
-    satıs.sort((a,b) => a.date.localeCompare(b.date))
+  if (click && dateClick == false) {
+    data.sort((a,b) => a.price - b.price)
+  }else if (click && dateClick) {
+    data.sort((a,b) => a.date.localeCompare(b.date))
+  }else if (click == false && dateClick) {
+    data.sort((a,b) => a.date.localeCompare(b.date))
   }
-  else if (click == false && tarihClick == false) {
-    satıs.sort((a,b) => a.fiyat - b.fiyat)
+  else if (click == false && dateClick == false) {
+    data.sort((a,b) => a.price - b.price)
   }
 
-  const azalan = () => {
+  const decreasing = () => {
     setClick(true)
-    setTarihClick(false)
+    setDateClick(false)
   }
-  const artan = () => {
+  const growing = () => {
     setClick(false)
-    setTarihClick(false)
+    setDateClick(false)
  }
- const tarih = () => {
+ const history = () => {
     setClick(true)
-    setTarihClick(true)
+    setDateClick(true)
  }
  useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 
@@ -54,13 +54,13 @@ const App = () => {
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
-        <Sbutton title="Artan" onPress={artan}/>
-        <Sbutton title="Azalan" onPress={azalan}/>
-        <Sbutton title="Tarih" onPress={tarih}/>
+        <Sbutton title="Artan" onPress={growing}/>
+        <Sbutton title="Azalan" onPress={decreasing}/>
+        <Sbutton title="Tarih" onPress={history}/>
       </View>
       <View style={styles.flatListView}>
         <FlatList 
-          data={satıs} 
+          data={data} 
           renderItem={({item}) => <UrunCard item={item}/>}
           contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}/>
       </View>
@@ -68,16 +68,16 @@ const App = () => {
         <Input 
           placeholder="Urun..." 
           title="Urun Adı" 
-          value={urun} 
+          value={product} 
           onChangeText={setUrun}></Input>
         <Input 
           placeholder="Fiyat..." 
           title="Fiyat" 
-          value={fiyat} 
+          value={price} 
           onChangeText={setFiyat}></Input>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={addUrun}> 
+          onPress={addProduct}> 
           <Text style={styles.buttonText}>Ekle</Text>
         </TouchableOpacity>
       </View>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   buttonContainer:{
     borderRadius:10, 
     margin:5, 
-    backgroundColor:"aqua",
+    backgroundColor:"teal",
     padding:10,
     alignItems:"center"
   },
