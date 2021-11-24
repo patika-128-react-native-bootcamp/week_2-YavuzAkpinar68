@@ -7,11 +7,8 @@ const AddInput = ({sendData}) => {
   const [product, setProduct] = useState("")
   const [price, setPrice] = useState()
   const [data, setData] = useState([])
-  /*const [click, setClick] = useState(true)*/
   const [date, setDate] = useState()
-  /*const [dateClick, setDateClick] = useState(false)*/
   sendData(data)
-
 
   const addProduct = () => {
     product ? price ?
@@ -21,7 +18,6 @@ const AddInput = ({sendData}) => {
     setPrice()
     setProduct("")
     setDate(new Date().toLocaleString())
-
   }
   useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 
@@ -41,7 +37,6 @@ const AddInput = ({sendData}) => {
         keyboard="numeric"/>
       <AddButton onPress={addProduct}/>
     </View>
-    
   )
 }
 export default AddInput
