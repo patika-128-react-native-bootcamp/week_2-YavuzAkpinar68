@@ -6,18 +6,20 @@ import Input from "./Input";
 const AddInput = ({sendData}) => {
   const [product, setProduct] = useState("")
   const [price, setPrice] = useState()
-  const [data, setData] = useState([])
+  /*const [data, setData] = useState([])*/
   const [date, setDate] = useState()
-  sendData(data)
+  
 
   const addProduct = () => {
-    product ? price ?
+    /*product ? price ?
     setData([{product:product, price:price, date:date},...data]):
     alert("Ürün adı veya Fiyat bölümleri boş bırakılamaz"):
     alert("Ürün adı veya Fiyat bölümleri boş bırakılamaz")
     setPrice()
-    setProduct("")
+    setProduct("")*/
     setDate(new Date().toLocaleString())
+
+    sendData(product, price, date)
   }
   useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 

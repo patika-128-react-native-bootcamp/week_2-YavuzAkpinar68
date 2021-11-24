@@ -19,8 +19,12 @@ const App = () => {
   const history = () => {
     products.sort((a,b) => a.date.localeCompare(b.date))
     setRender(3)
+    console.log(products)
   }
-
+  const handleData = (product, price, date) => {
+    setProducts([{product:product, date:date, price:price}, ...products])
+  }
+  
   useEffect(() => {setRender(0)}, [render])
 
   return(
@@ -37,7 +41,7 @@ const App = () => {
           renderItem={({item}) => <ProductCard item={item}/>}/>
       </View>
       <View style={styles.inputView}>
-        <AddInput sendData={data => setProducts(data)}></AddInput>
+        <AddInput sendData={handleData}></AddInput>
       </View>
     </SafeAreaView>
   )
