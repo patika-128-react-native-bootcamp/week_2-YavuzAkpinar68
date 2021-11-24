@@ -1,54 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import Input from './Components/Input/Input';
+import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 import Sbutton from './Components/Buttons/SButton';
 import ProductCard from './Components/ProductCard/ProductCard';
-import AddButton from './Components/Buttons/AddButton';
 import AddInput from './Components/Input/AddInput';
-
-
 
 const App = () => {
   const [products, setProducts] = useState([])
   const [render, setRender] = useState(0)
-
-  
-  
-
-  /*if (click && dateClick == false) {
-    data.sort((a,b) => a.price - b.price)
-  }else if (click && dateClick) {
-    data.sort((a,b) => a.date.localeCompare(b.date))
-  }else if (click == false && dateClick) {
-    data.sort((a,b) => a.date.localeCompare(b.date))
-  }
-  else if (click == false && dateClick == false) {
-    data.sort((a,b) => a.price - b.price)
-  }*/
   
   const decreasing = () => {
-    /*setClick(true)
-    setDateClick(false)*/
     setProducts(products.sort((a,b) => a.price - b.price).reverse())
     setRender(1)
   }
   const growing = () => {
     console.log("aaaaaaaa")
-    /*setClick(false)*/
-    /*setDateClick(false)*/
     products.sort((a,b) => a.price - b.price)
     setRender(2)
-
   }
   const history = () => {
-    /*setClick(true)
-    setDateClick(true)*/
     products.sort((a,b) => a.date.localeCompare(b.date))
     setRender(3)
-
   }
-
- useEffect(() => {}, [])
+  useEffect(() => {setRender(0)}, [render])
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
@@ -60,8 +33,7 @@ const App = () => {
         <FlatList
           extraData={render} 
           data={products} 
-          renderItem={({item}) => <ProductCard item={item}/>}
-          /*contentContainerStyle={click?{flexDirection:"column"}:{flexDirection:"column-reverse"}}*//>
+          renderItem={({item}) => <ProductCard item={item}/>}/>
       </View>
       <View style={styles.inputView}>
         <AddInput sendData={data => setProducts(data)}></AddInput>
