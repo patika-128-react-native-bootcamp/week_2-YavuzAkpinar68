@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
+import {FlatList, SafeAreaView, View} from 'react-native';
 import Sbutton from './Components/Buttons/SButton';
 import ProductCard from './Components/ProductCard/ProductCard';
 import AddInput from './Components/Input/AddInput';
+import styles from './AppStyle';
 
 const App = () => {
   const [products, setProducts] = useState([])
+  //There is a render state for re-render to flatlist which is going to trigger when touched to alingment buttons
+  //It used at flatslist's extraData prop
+  //without this state i had a problem.My flatlist was coming one button touch behind.
   const [render, setRender] = useState(0)
   
   const decreasing = () => {
@@ -24,7 +28,9 @@ const App = () => {
   const handleData = (product, price, date) => {
     setProducts([{product:product, date:date, price:price}, ...products])
   }
-  
+  //With this useEffect render going to zero point after touched the button
+  //With that when we have growing or decreasing type list in front of us we can manage to listing the list with same type
+  //after we added a product
   useEffect(() => {setRender(0)}, [render])
 
   return(
@@ -49,20 +55,4 @@ const App = () => {
 
 export default App;
 
-const styles = StyleSheet.create({
-  
-  sButtonView:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    flex:1
-  },
-  flatListView:{
-    flex:6
-  },
-  container:{
-    flex:1
-  },
-  inputView:{
-    flex:3,
-  }
-})
+
