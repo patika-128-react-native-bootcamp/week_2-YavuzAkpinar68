@@ -13,7 +13,6 @@ const App = () => {
     setRender(1)
   }
   const growing = () => {
-    console.log("aaaaaaaa")
     products.sort((a,b) => a.price - b.price)
     setRender(2)
   }
@@ -21,7 +20,9 @@ const App = () => {
     products.sort((a,b) => a.date.localeCompare(b.date))
     setRender(3)
   }
+
   useEffect(() => {setRender(0)}, [render])
+
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
