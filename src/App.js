@@ -7,10 +7,9 @@ import styles from './AppStyle';
 
 const App = () => {
   const [data, setData] = useState([])
-  //There is a render state for re-render to flatlist which is going to trigger when touched to alingment buttons
-  //It used at flatslist's extraData prop
-  //without this state i had a problem.My flatlist was coming one button touch behind.
   const [renderFlatlist, setRenderFlatlist] = useState(0)
+  //This state used at flatslist's extraData prop
+  //without this state my flatlist was coming one button touch behind.
   
   const handleDecreasing = () => {
     data.sort((a,b) => a.price - b.price).reverse()
@@ -27,10 +26,11 @@ const App = () => {
   const handleData = (product, price, date) => {
     setData([{product:product, date:date, price:price}, ...data])
   }
+  
+  useEffect(() => {setRenderFlatlist(0)}, [renderFlatlist])
   //With this useEffect render going to zero point after touched the button
   //With that when we have growing or decreasing type list in front of us we can manage to listing the list with the same type
   //after we added a product
-  useEffect(() => {setRenderFlatlist(0)}, [renderFlatlist])
 
   return(
     <SafeAreaView style={styles.container}>

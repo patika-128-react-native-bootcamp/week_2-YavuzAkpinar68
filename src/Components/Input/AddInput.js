@@ -20,9 +20,10 @@ const AddInput = ({sendData}) => {
     setProduct("")
     setDate(new Date().toLocaleString())
   }
+  
+  useEffect(() => (setDate(new Date().toLocaleString())) ,[])
   //With this use useEffect we have a start time data.This data is replace the first products date.
   //I used it otherwise the first product's date info returns undefined
-  useEffect(() => (setDate(new Date().toLocaleString())) ,[])
 
   return(
     <View>
