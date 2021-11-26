@@ -6,44 +6,43 @@ import AddInput from './Components/Input/AddInput';
 import styles from './AppStyle';
 
 const App = () => {
-  const [products, setProducts] = useState([])
+  const [data, setData] = useState([])
   //There is a render state for re-render to flatlist which is going to trigger when touched to alingment buttons
   //It used at flatslist's extraData prop
   //without this state i had a problem.My flatlist was coming one button touch behind.
-  const [render, setRender] = useState(0)
+  const [renderFlatlist, setRenderFlatlist] = useState(0)
   
-  const decreasing = () => {
-    setProducts(products.sort((a,b) => a.price - b.price).reverse())
-    setRender(1)
+  const handleDecreasing = () => {
+    data.sort((a,b) => a.price - b.price).reverse()
+    setRenderFlatlist(1)
   }
-  const growing = () => {
-    products.sort((a,b) => a.price - b.price)
-    setRender(2)
+  const handleGrowing = () => {
+    data.sort((a,b) => a.price - b.price)
+    setRenderFlatlist(2)
   }
-  const history = () => {
-    products.sort((a,b) => a.date.localeCompare(b.date))
-    setRender(3)
-    console.log(products)
+  const handleHistory = () => {
+    data.sort((a,b) => a.date.localeCompare(b.date))
+    setRenderFlatlist(3)
   }
   const handleData = (product, price, date) => {
-    setProducts([{product:product, date:date, price:price}, ...products])
+    setData([{product:product, date:date, price:price}, ...data])
   }
   //With this useEffect render going to zero point after touched the button
-  //With that when we have growing or decreasing type list in front of us we can manage to listing the list with same type
+  //With that when we have growing or decreasing type list in front of us we can manage to listing the list with the same type
   //after we added a product
-  useEffect(() => {setRender(0)}, [render])
+  useEffect(() => {setRenderFlatlist(0)}, [renderFlatlist])
 
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.sButtonView}>
-        <Sbutton title="Artan" onPress={growing}/>
-        <Sbutton title="Azalan" onPress={decreasing}/>
-        <Sbutton title="Tarih" onPress={history}/>
+        <Sbutton title="Artan" onPress={handleGrowing}/>
+        <Sbutton title="Azalan" onPress={handleDecreasing}/>
+        <Sbutton title="Tarih" onPress={handleHistory}/>
       </View>
       <View style={styles.flatListView}>
         <FlatList
-          extraData={render} 
-          data={products} 
+          extraData={renderFlatlist} 
+          data={data} 
           renderItem={({item}) => <ProductCard item={item}/>}/>
       </View>
       <View style={styles.inputView}>

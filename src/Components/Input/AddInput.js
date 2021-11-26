@@ -13,6 +13,9 @@ const AddInput = ({sendData}) => {
     product ? price ? sendData(product, price, date) :
     alert("Ürün adı veya Fiyat bölümleri boş bırakılamaz"):
     alert("Ürün adı veya Fiyat bölümleri boş bırakılamaz")
+    handleState()
+  }
+  const handleState = () => {
     setPrice()
     setProduct("")
     setDate(new Date().toLocaleString())
